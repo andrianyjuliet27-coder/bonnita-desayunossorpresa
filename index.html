@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonnita - Desayunos & Detalles | Sorpresas a Domicilio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            rose: '#F9ECEC',
+                            pink: '#E8A598',
+                            darkpink: '#D2796D',
+                            cream: '#FAF6F0',
+                            gold: '#D4AF37',
+                            wood: '#5C4033',
+                            charcoal: '#2D2926'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-overlay {
+            background: linear-gradient(180deg, rgba(250,246,240,0.4) 0%, rgba(249,236,236,0.9) 100%);
+        }
+        .hero-bg {
+            background-image: radial-gradient(#E8A598 0.75px, transparent 0.75px);
+            background-size: 24px 24px;
+        }
+        .modal-blur {
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-brand-cream text-brand-charcoal font-sans flex flex-col min-h-screen relative selection:bg-brand-pink selection:text-white">
+
+    <!-- Top Notification Bar -->
+    <div class="bg-brand-darkpink text-white text-xs md:text-sm py-2 px-4 text-center font-medium tracking-wide">
+        ✨ Entregas a domicilio de Lunes a Domingo • Reserva con 24h de anticipación ✨
+    </div>
+
+    <!-- Navigation Header -->
+    <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-brand-rose/80 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex flex-col">
+                <span class="font-serif text-3xl font-bold tracking-tight text-brand-darkpink leading-none">Bonnita</span>
+                <span class="text-[10px] tracking-widest uppercase text-brand-wood/70 font-semibold mt-1">Desayunos & Detalles</span>
+            </a>
+
+            <!-- Menu Navigation Links -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-700">
+                <a href="#menu" class="hover:text-brand-darkpink transition-colors">Nuestros Kits</a>
+                <a href="#como-funciona" class="hover:text-brand-darkpink transition-colors">¿Cómo Funciona?</a>
+                <a href="#opiniones" class="hover:text-brand-darkpink transition-colors">Reseñas</a>
+                <a href="#contacto" class="hover:text-brand-darkpink transition-colors">Contacto</a>
+            </div>
+
+            <!-- Cart Trigger Button -->
+            <button onclick="toggleCart()" class="relative p-2.5 rounded-full bg-brand-rose hover:bg-brand-pink/20 text-brand-darkpink transition-all flex items-center gap-2 px-4">
+                <i class="fa-solid fa-basket-shopping text-lg"></i>
+                <span class="hidden sm:inline font-semibold text-sm">Mi Pedido</span>
+                <span id="cart-count" class="bg-brand-darkpink text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 hero-bg overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Hero Left Text Content -->
+                <div class="space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-brand-pink/30 shadow-xs text-xs font-semibold text-brand-darkpink">
+                        <i class="fa-solid fa-heart text-xs"></i> Sorpresas inolvidables por la mañana
+                    </div>
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                        La mejor excusa para no salir de la cama.
+                    </h1>
+                    <p class="text-base sm:text-lg text-gray-600 max-w-xl mx-auto lg:mx-0 font-normal">
+                        Regala momentos únicos con nuestros desayunos sorpresa artesanales: jugo natural, tequeños, croissant, waffles, café frío y detalles personalizados entregados directo en su puerta.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#menu" class="w-full sm:w-auto px-8 py-4 rounded-full bg-brand-darkpink hover:bg-brand-darkpink/90 text-white font-semibold shadow-lg shadow-brand-darkpink/20 hover:shadow-xl transition-all text-center">
+                            Ver Menú & Pedir
+                        </a>
+                        <button onclick="openWhatsAppDirect()" class="w-full sm:w-auto px-8 py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-md transition-all flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp Directo
+                        </button>
+                    </div>
+
+                    <!-- Trust Indicators -->
+                    <div class="pt-6 flex items-center justify-center lg:justify-start gap-6 text-xs text-gray-500 font-medium">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-truck-fast text-brand-darkpink"></i> Envíos Puntuales</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-ribbon text-brand-darkpink"></i> Empaque Premium</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-face-smile text-brand-darkpink"></i> +500 Sonrisas</span>
+                    </div>
+                </div>
+
+                <!-- Hero Right Presentation Card -->
+                <div class="relative flex justify-center">
+                    <div class="relative w-full max-w-md bg-white p-6 rounded-3xl shadow-2xl border border-brand-rose/50">
+                        <div class="aspect-video w-full rounded-2xl bg-gradient-to-br from-brand-rose to-brand-pink/30 overflow-hidden relative mb-5 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1513442542250-854d436a73f2?auto=format&fit=crop&q=80&w=800" alt="Desayuno Sorpresa Bonnita" class="object-cover w-full h-full">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-brand-darkpink shadow-xs">
+                                ✨ Más Vendido
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-serif text-2xl font-bold text-gray-900">Kit Cumpleaños 🎈</h3>
+                                <span class="font-bold text-lg text-brand-darkpink">29.90€</span>
+                            </div>
+                            <p class="text-xs text-gray-500 leading-relaxed">
+                                Sándwiches mixtos, tequeños crujientes, brocheta de pancakes, fresas con chocolate, zumo fresco y café frío.
+                            </p>
+                            <button onclick="addToCart('kit-cumple')" class="w-full py-3 rounded-xl bg-brand-rose hover:bg-brand-pink text-brand-darkpink hover:text-white font-semibold transition-colors flex items-center justify-center gap-2 text-sm">
+                                <i class="fa-solid fa-plus"></i> Añadir a mi pedido
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Menu Section -->
+    <section id="menu" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-bold tracking-widest text-brand-darkpink uppercase mb-2">Menú de Especialidades</h2>
+                <p class="font-serif text-3xl sm:text-4xl font-bold text-gray-900">Nuestros Kits de Desayuno Sorpresa</p>
+                <p class="text-gray-500 mt-2 text-sm sm:text-base">Selecciona tu kit preferido, personaliza el mensaje de la tarjeta y programamos la entrega.</p>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap justify-center gap-2 mt-8">
+                    <button onclick="filterMenu('all')" id="filter-all" class="filter-btn px-5 py-2 rounded-full text-sm font-semibold transition-all bg-brand-darkpink text-white shadow-sm">
+                        Todos los Kits
+                    </button>
+                    <button onclick="filterMenu('cumple')" id="filter-cumple" class="filter-btn px-5 py-2 rounded-full text-sm font-semibold transition-all bg-brand-cream text-gray-600 hover:bg-brand-rose">
+                        Cumpleaños
+                    </button>
+                    <button onclick="filterMenu('romantico')" id="filter-romantico" class="filter-btn px-5 py-2 rounded-full text-sm font-semibold transition-all bg-brand-cream text-gray-600 hover:bg-brand-rose">
+                        Románticos
+                    </button>
+                    <button onclick="filterMenu('fitness')" id="filter-fitness" class="filter-btn px-5 py-2 rounded-full text-sm font-semibold transition-all bg-brand-cream text-gray-600 hover:bg-brand-rose">
+                        Fitness / Saludable
+                    </button>
+                </div>
+            </div>
+
+            <!-- Kits Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- KIT 1: CUMPLE -->
+                <div class="kit-card category-cumple bg-brand-cream/60 rounded-3xl p-5 border border-brand-rose hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-48 rounded-2xl overflow-hidden mb-4">
+                            <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&q=80&w=600" alt="Kit Cumpleaños" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-white/90 text-brand-darkpink text-xs font-bold px-3 py-1 rounded-full">Popular</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-gray-900 mb-1">Kit Cumpleaños 🎈</h3>
+                        <p class="text-xs text-gray-500 mb-4">La combinación alegre y completa para empezar su nuevo año llenos de energía.</p>
+                        
+                        <ul class="text-xs text-gray-600 space-y-1.5 mb-6">
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Zumo en botella + Café frío</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Sándwiches mixtos o de pollo</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Tequeños & Mini croissants</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Fresas con chocolate & Pancakes</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Yogurt con frutas + Tarrito Nutella</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs text-gray-400">Precio unitario</span>
+                            <span class="font-serif text-2xl font-bold text-brand-darkpink">29.90€</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="openDetailModal('kit-cumple')" class="py-2.5 rounded-xl border border-brand-darkpink text-brand-darkpink text-xs font-semibold hover:bg-brand-rose transition-colors">
+                                Ver Detalle
+                            </button>
+                            <button onclick="addToCart('kit-cumple')" class="py-2.5 rounded-xl bg-brand-darkpink text-white text-xs font-semibold hover:bg-brand-darkpink/90 transition-colors">
+                                Pedir Kit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KIT 2: ROMANTICO -->
+                <div class="kit-card category-romantico bg-brand-cream/60 rounded-3xl p-5 border border-brand-rose hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-48 rounded-2xl overflow-hidden mb-4">
+                            <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=600" alt="Kit Romántico" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">Especial Amor</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-gray-900 mb-1">Kit Romántico ❤️</h3>
+                        <p class="text-xs text-gray-500 mb-4">Un detalle elegante e íntimo para aniversarios o mañanas especiales.</p>
+                        
+                        <ul class="text-xs text-gray-600 space-y-1.5 mb-6">
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Cappuccino/Latte + Zumo natural</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Bagel de salmón ahumado & queso</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Mini croissants & Tequeños</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Fresas con chocolate gourmet</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Waffles con sirope + Frutos secos</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs text-gray-400">Precio unitario</span>
+                            <span class="font-serif text-2xl font-bold text-brand-darkpink">34.90€</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="openDetailModal('kit-romantico')" class="py-2.5 rounded-xl border border-brand-darkpink text-brand-darkpink text-xs font-semibold hover:bg-brand-rose transition-colors">
+                                Ver Detalle
+                            </button>
+                            <button onclick="addToCart('kit-romantico')" class="py-2.5 rounded-xl bg-brand-darkpink text-white text-xs font-semibold hover:bg-brand-darkpink/90 transition-colors">
+                                Pedir Kit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KIT 3: FITNESS -->
+                <div class="kit-card category-fitness bg-brand-cream/60 rounded-3xl p-5 border border-brand-rose hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-48 rounded-2xl overflow-hidden mb-4">
+                            <img src="https://images.unsplash.com/photo-1494390248081-4e521a5940db?auto=format&fit=crop&q=80&w=600" alt="Kit Fitness" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full">Saludable</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-gray-900 mb-1">Kit Fitness 🌿</h3>
+                        <p class="text-xs text-gray-500 mb-4">Ligero, nutritivo y lleno de frescura para cuidar a quien más quieres.</p>
+                        
+                        <ul class="text-xs text-gray-600 space-y-1.5 mb-6">
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Smoothie natural + Agua + Té</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Bagel de aguacate y huevo duro</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Sándwich de pollo integral</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Yogurt griego con granola y fruta</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Brochetas de fruta + Miel y nueces</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs text-gray-400">Precio unitario</span>
+                            <span class="font-serif text-2xl font-bold text-brand-darkpink">31.50€</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="openDetailModal('kit-fitness')" class="py-2.5 rounded-xl border border-brand-darkpink text-brand-darkpink text-xs font-semibold hover:bg-brand-rose transition-colors">
+                                Ver Detalle
+                            </button>
+                            <button onclick="addToCart('kit-fitness')" class="py-2.5 rounded-xl bg-brand-darkpink text-white text-xs font-semibold hover:bg-brand-darkpink/90 transition-colors">
+                                Pedir Kit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KIT 4: CUMPLEAÑERO ESPECIAL -->
+                <div class="kit-card category-cumple bg-brand-cream/60 rounded-3xl p-5 border border-brand-rose hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-48 rounded-2xl overflow-hidden mb-4">
+                            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=600" alt="Kit Cumpleañero Especial" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-brand-gold text-white text-xs font-bold px-3 py-1 rounded-full">Para Compartir</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-gray-900 mb-1">Especial VIP ✨</h3>
+                        <p class="text-xs text-gray-500 mb-4">La versión más abundante y variada para sorpresas a lo grande.</p>
+                        
+                        <ul class="text-xs text-gray-600 space-y-1.5 mb-6">
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Zumo + Café frío + Agua</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Sándwiches pollo + Mini empandas</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Tequeños (6u) & Croissants mixtos</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Brochetas pancakes + Fresas choc</li>
+                            <li><i class="fa-solid fa-check text-brand-darkpink mr-1"></i> Yogurt parfaits + Múltiples untables</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs text-gray-400">Precio unitario</span>
+                            <span class="font-serif text-2xl font-bold text-brand-darkpink">39.90€</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="openDetailModal('kit-vip')" class="py-2.5 rounded-xl border border-brand-darkpink text-brand-darkpink text-xs font-semibold hover:bg-brand-rose transition-colors">
+                                Ver Detalle
+                            </button>
+                            <button onclick="addToCart('kit-vip')" class="py-2.5 rounded-xl bg-brand-darkpink text-white text-xs font-semibold hover:bg-brand-darkpink/90 transition-colors">
+                                Pedir Kit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="como-funciona" class="py-16 bg-brand-rose/40 border-y border-brand-rose">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-xs font-bold tracking-widest text-brand-darkpink uppercase mb-2">Paso a Paso</h2>
+                <p class="font-serif text-3xl font-bold text-gray-900">¿Cómo enviamos tu sorpresa?</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-rose/60">
+                    <div class="w-12 h-12 rounded-full bg-brand-rose text-brand-darkpink flex items-center justify-center mx-auto text-xl font-bold mb-4">1</div>
+                    <h3 class="font-bold text-gray-900 mb-2">Elige tu Kit</h3>
+                    <p class="text-xs text-gray-500">Selecciona la combinación dulce y salada que más le guste al homenajeado.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-rose/60">
+                    <div class="w-12 h-12 rounded-full bg-brand-rose text-brand-darkpink flex items-center justify-center mx-auto text-xl font-bold mb-4">2</div>
+                    <h3 class="font-bold text-gray-900 mb-2">Personaliza la Nota</h3>
+                    <p class="text-xs text-gray-500">Escribe el mensaje bonito que imprimiremos e incluiremos dentro de la caja.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-rose/60">
+                    <div class="w-12 h-12 rounded-full bg-brand-rose text-brand-darkpink flex items-center justify-center mx-auto text-xl font-bold mb-4">3</div>
+                    <h3 class="font-bold text-gray-900 mb-2">Coordina la Hora</h3>
+                    <p class="text-xs text-gray-500">Define el horario exacto y la dirección de entrega para la sorpresa perfecta.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-rose/60">
+                    <div class="w-12 h-12 rounded-full bg-brand-rose text-brand-darkpink flex items-center justify-center mx-auto text-xl font-bold mb-4">4</div>
+                    <h3 class="font-bold text-gray-900 mb-2">¡Entregamos Alegría!</h3>
+                    <p class="text-xs text-gray-500">Llegamos puntuales a su puerta con un empaque impecable listo para disfrutar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="opiniones" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-xs font-bold tracking-widest text-brand-darkpink uppercase mb-2">Clientes Felices</h2>
+                <p class="font-serif text-3xl font-bold text-gray-900">Lo que dicen de Bonnita</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 rounded-2xl bg-brand-cream/40 border border-brand-rose space-y-3">
+                    <div class="flex text-amber-400 text-xs gap-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-xs text-gray-600 italic">"Pedí el Kit Cumpleaños para mi hermana y quedó maravillada. Los tequeños llegaron calentitos y el empaque es una hermosura."</p>
+                    <p class="text-xs font-bold text-gray-900">— Mariana G.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-brand-cream/40 border border-brand-rose space-y-3">
+                    <div class="flex text-amber-400 text-xs gap-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-xs text-gray-600 italic">"El Kit Romántico superó mis expectativas. El bagel de salmón exquisito y la presentación muy cuidada. 100% recomendados."</p>
+                    <p class="text-xs font-bold text-gray-900">— Carlos M.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-brand-cream/40 border border-brand-rose space-y-3">
+                    <div class="flex text-amber-400 text-xs gap-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-xs text-gray-600 italic">"Puntualidad de diez. Pedí la opción fitness para mi madre y el yogurt con granola casera estaba espectacular."</p>
+                    <p class="text-xs font-bold text-gray-900">— Sofía R.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto" class="bg-brand-charcoal text-white mt-auto pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-gray-700">
+                <div>
+                    <span class="font-serif text-3xl font-bold tracking-tight text-brand-pink leading-none">Bonnita</span>
+                    <p class="text-xs text-gray-400 mt-2 max-w-sm">
+                        Especialistas en desayunos sorpresa y detalles artesanales a domicilio. Creamos recuerdos inolvidables desde muy temprano.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm mb-3 text-brand-rose">Contacto & Pedidos</h4>
+                    <ul class="text-xs text-gray-400 space-y-2">
+                        <li><i class="fa-brands fa-whatsapp text-emerald-400 mr-2"></i> WhatsApp: +34 600 000 000</li>
+                        <li><i class="fa-brands fa-instagram text-pink-400 mr-2"></i> Instagram: @bonnita.desayunos</li>
+                        <li><i class="fa-solid fa-envelope text-gray-400 mr-2"></i> hola@bonnitadesayunos.com</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm mb-3 text-brand-rose">Horarios de Entrega</h4>
+                    <p class="text-xs text-gray-400">Lunes a Viernes: 07:00 - 12:00</p>
+                    <p class="text-xs text-gray-400">Sábados y Domingos: 08:00 - 13:00</p>
+                </div>
+            </div>
+            <div class="pt-6 text-center text-xs text-gray-500">
+                © 2026 Bonnita - Desayunos & Detalles. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART SIDEBAR DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div onclick="toggleCart()" class="absolute inset-0 bg-black/40 modal-blur"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between">
+                
+                <!-- Drawer Header -->
+                <div class="p-6 bg-brand-cream border-b border-brand-rose flex items-center justify-between">
+                    <h3 class="font-serif text-2xl font-bold text-gray-900">Tu Pedido Bonnita</h3>
+                    <button onclick="toggleCart()" class="text-gray-400 hover:text-gray-600 p-2">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Drawer Content -->
+                <div class="p-6 overflow-y-auto flex-1 space-y-6">
+                    <div id="cart-items" class="space-y-4">
+                        <!-- Dynamic items will load here -->
+                    </div>
+
+                    <!-- Custom Message Section -->
+                    <div class="pt-4 border-t border-gray-100">
+                        <label class="block text-xs font-bold text-gray-700 mb-1">
+                            💌 Mensaje personalizado para la tarjeta:
+                        </label>
+                        <textarea id="card-message" rows="3" placeholder="Ej: ¡Feliz Cumpleaños Mamá! Te amo con todo mi corazón. De parte de Carlos." class="w-full text-xs p-3 rounded-xl border border-gray-200 focus:outline-none focus:border-brand-darkpink"></textarea>
+                    </div>
+
+                    <!-- Delivery Details -->
+                    <div class="space-y-3 pt-2">
+                        <label class="block text-xs font-bold text-gray-700">📅 Fecha y hora aproximada de entrega:</label>
+                        <input type="text" id="delivery-info" placeholder="Ej: Mañana 8:30 AM en Calle Gran Vía 12" class="w-full text-xs p-3 rounded-xl border border-gray-200 focus:outline-none focus:border-brand-darkpink">
+                    </div>
+                </div>
+
+                <!-- Drawer Footer -->
+                <div class="p-6 bg-white border-t border-gray-100 space-y-4">
+                    <div class="flex items-center justify-between font-serif text-xl font-bold">
+                        <span>Total estimado:</span>
+                        <span id="cart-total" class="text-brand-darkpink">0.00€</span>
+                    </div>
+                    <button onclick="sendOrderWhatsApp()" class="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition-colors flex items-center justify-center gap-2 shadow-lg">
+                        <i class="fa-brands fa-whatsapp text-xl"></i> Enviar Pedido por WhatsApp
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- DETAIL MODAL -->
+    <div id="detail-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden p-4">
+        <div onclick="closeDetailModal()" class="absolute inset-0 bg-black/50 modal-blur"></div>
+        <div class="relative bg-white max-w-lg w-full rounded-3xl p-6 shadow-2xl z-10 space-y-4 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeDetailModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            
+            <div id="modal-content">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- STICKY WHATSAPP BUTTON -->
+    <a href="#" onclick="openWhatsAppDirect()" class="fixed bottom-6 right-6 z-30 bg-emerald-500 hover:bg-emerald-600 text-white p-4 rounded-full shadow-2xl transition-transform hover:scale-110 flex items-center justify-center">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        // Database of Kits
+        const kits = {
+            'kit-cumple': {
+                id: 'kit-cumple',
+                name: 'Kit Cumpleaños 🎈',
+                price: 29.90,
+                category: 'cumple',
+                image: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&q=80&w=600',
+                description: 'Un desayuno lleno de sabor y alegría pensado para celebrar un año más de vida.',
+                items: [
+                    'Zumo natural en botella (250ml)',
+                    'Café frío expreso/latte saborizado',
+                    'Sándwiches mixtos o de pollo artesanal',
+                    '3 Tequeños crujientes',
+                    '2 Mini croissants de jamón york y queso',
+                    'Fresas cubiertas de chocolate gourmet',
+                    'Brocheta de mini pancakes con fruta',
+                    'Vasito de yogurt con frutas de temporada y granola',
+                    'Tarrito mini de Nutella o dulce de leche'
+                ]
+            },
+            'kit-romantico': {
+                id: 'kit-romantico',
+                name: 'Kit Romántico ❤️',
+                price: 34.90,
+                category: 'romantico',
+                image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=600',
+                description: 'La opción más elegante y refinada para sorprender a tu pareja en mañanas inolvidables.',
+                items: [
+                    'Cappuccino o Latte saborizado en botella',
+                    'Zumo natural exprimido en botella',
+                    'Bagel gourmet de salmón ahumado con queso crema',
+                    'Mini croissants rellenos de queso brie/salmón',
+                    'Tequeños tradicionales',
+                    'Cajita especial de fresas cubiertas de chocolate decoradas',
+                    'Waffles artesanales con sirope de arce',
+                    'Mix de frutos secos seleccionados'
+                ]
+            },
+            'kit-fitness': {
+                id: 'kit-fitness',
+                name: 'Kit Fitness 🌿',
+                price: 31.50,
+                category: 'fitness',
+                image: 'https://images.unsplash.com/photo-1494390248081-4e521a5940db?auto=format&fit=crop&q=80&w=600',
+                description: 'Nutritivo, fresco y ligero. Ideal para cuidar a quienes aman mantener un estilo de vida saludable.',
+                items: [
+                    'Smoothie/Batido natural de fresa-banana o mango',
+                    'Agua mineral + Infusión de té verde/frutal premium',
+                    'Bagel de aguacate con huevo duro entero',
+                    'Sándwich de pollo a la plancha en pan integral',
+                    'Mini empanaditas horneadas de vegetal/queso',
+                    'Vasito de yogurt griego con mermelada artesanal y granola crujiente',
+                    'Brochetas de fruta fresca de temporada',
+                    'Cajita de frutos secos (almendras, nueces, arándanos) + Tarrito de miel'
+                ]
+            },
+            'kit-vip': {
+                id: 'kit-vip',
+                name: 'Especial VIP ✨',
+                price: 39.90,
+                category: 'cumple',
+                image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=600',
+                description: 'Nuestra propuesta más completa con raciones extra para compartir en momentos únicos.',
+                items: [
+                    'Zumo natural + Café frío + Agua mineral',
+                    'Sándwiches mixtos y de pollo artesanal',
+                    '6 Tequeños artesanales',
+                    'Mini empanaditas de carne/pollo',
+                    'Mini croissants variados',
+                    'Fresas con chocolate + Brochetas de pancakes con sirope',
+                    'Vasito Parfait de yogurt con frutos rojos',
+                    'Tarritos mini de untables + Cajita de frutos secos'
+                ]
+            }
+        };
+
+        // State Management
+        let cart = [];
+
+        // Cart Drawer Functions
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function addToCart(kitId) {
+            const selectedKit = kits[kitId];
+            const existing = cart.find(item => item.id === kitId);
+
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...selectedKit, quantity: 1 });
+            }
+
+            updateCartUI();
+            toggleCart();
+        }
+
+        function removeFromCart(kitId) {
+            cart = cart.filter(item => item.id !== kitId);
+            updateCartUI();
+        }
+
+        function changeQuantity(kitId, delta) {
+            const item = cart.find(i => i.id === kitId);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    removeFromCart(kitId);
+                } else {
+                    updateCartUI();
+                }
+            }
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+
+            // Update badge count
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalCount;
+
+            // Render Items
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-8 text-gray-400 space-y-2">
+                        <i class="fa-solid fa-basket-shopping text-4xl"></i>
+                        <p class="text-sm">Tu pedido está vacío por ahora.</p>
+                    </div>
+                `;
+                cartTotal.textContent = '0.00€';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                html += `
+                    <div class="flex items-center justify-between gap-4 p-3 rounded-2xl bg-brand-cream/60 border border-brand-rose">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-xs text-gray-900">${item.name}</h4>
+                            <span class="text-xs text-brand-darkpink font-semibold">${item.price.toFixed(2)}€</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="changeQuantity('${item.id}', -1)" class="w-6 h-6 rounded-full bg-white border border-gray-300 text-xs flex items-center justify-center">-</button>
+                            <span class="text-xs font-bold">${item.quantity}</span>
+                            <button onclick="changeQuantity('${item.id}', 1)" class="w-6 h-6 rounded-full bg-white border border-gray-300 text-xs flex items-center justify-center">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cartItemsContainer.innerHTML = html;
+            cartTotal.textContent = `${total.toFixed(2)}€`;
+        }
+
+        // WhatsApp Order Link Generator
+        function sendOrderWhatsApp() {
+            if (cart.length === 0) {
+                alert('Añade al menos un kit a tu pedido antes de continuar.');
+                return;
+            }
+
+            const phone = "34600000000"; // Reemplazar con el número real de WhatsApp
+            const cardMsg = document.getElementById('card-message').value.trim();
+            const deliveryInfo = document.getElementById('delivery-info').value.trim();
+
+            let text = "✨ *NUEVO PEDIDO - BONNITA DESAYUNOS* ✨\n\n";
+            let total = 0;
+
+            cart.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                text += `• ${item.quantity}x ${item.name} (${subtotal.toFixed(2)}€)\n`;
+            });
+
+            text += `\n💰 *Total Estimado:* ${total.toFixed(2)}€\n`;
+
+            if (cardMsg) {
+                text += `\n💌 *Mensaje de la tarjeta:* "${cardMsg}"\n`;
+            }
+
+            if (deliveryInfo) {
+                text += `📅 *Fecha y entrega:* ${deliveryInfo}\n`;
+            }
+
+            text += "\n¡Hola! Quisiera confirmar la disponibilidad para este pedido. 🥐🍓";
+
+            const encodedText = encodeURIComponent(text);
+            window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
+        }
+
+        function openWhatsAppDirect() {
+            const phone = "34600000000";
+            const text = encodeURIComponent("¡Hola Bonnita! 🌸 Quisiera consultar información sobre los desayunos sorpresa.");
+            window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+        }
+
+        // Detail Modal
+        function openDetailModal(kitId) {
+            const kit = kits[kitId];
+            const modalContent = document.getElementById('modal-content');
+
+            modalContent.innerHTML = `
+                <div class="space-y-4">
+                    <img src="${kit.image}" alt="${kit.name}" class="w-full h-48 rounded-2xl object-cover">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-serif text-2xl font-bold text-gray-900">${kit.name}</h3>
+                        <span class="font-serif text-2xl font-bold text-brand-darkpink">${kit.price.toFixed(2)}€</span>
+                    </div>
+                    <p class="text-xs text-gray-600">${kit.description}</p>
+                    
+                    <div class="space-y-2 pt-2">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-brand-wood">Contenido del Kit:</h4>
+                        <ul class="text-xs text-gray-600 space-y-1.5">
+                            ${kit.items.map(item => `<li><i class="fa-solid fa-circle-check text-brand-darkpink mr-2"></i>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <button onclick="addToCart('${kit.id}'); closeDetailModal();" class="w-full py-3.5 rounded-xl bg-brand-darkpink text-white font-semibold hover:bg-brand-darkpink/90 transition-colors mt-4">
+                        Añadir este Kit a mi Pedido
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        // Filter Logic
+        function filterMenu(category) {
+            const cards = document.querySelectorAll('.kit-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-brand-darkpink', 'text-white');
+                btn.classList.add('bg-brand-cream', 'text-gray-600');
+            });
+
+            document.getElementById(`filter-${category}`).classList.add('bg-brand-darkpink', 'text-white');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(`category-${category}`)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
